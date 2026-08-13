@@ -1,0 +1,9 @@
+<group name="custom,soc_pfa,">
+  <rule id="100001" level="10">
+    <if_sid>60204</if_sid>
+    <description>Custom rule: Multiple failed logins detected by SOC pipeline</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+</group>
