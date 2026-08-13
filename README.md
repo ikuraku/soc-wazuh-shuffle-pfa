@@ -8,4 +8,4 @@ Plateforme SOC automatisée intégrant Wazuh SIEM/XDR et Shuffle SOAR sur infras
 - `ansible/` : playbooks de déploiement automatisé
 - `github-actions/` : pipelines CI/CD (Detection-as-Code)
 - `shuffle-workflows/` : exports JSON des workflows SOAR
-EOF
+
