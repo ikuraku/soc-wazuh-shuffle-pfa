@@ -1,0 +1,22 @@
+---
+- name: Déploiement automatisé de l'agent Wazuh sur Windows
+  hosts: windows_agents
+  gather_facts: no
+
+  tasks:
+    - name: Télécharger l'agent Wazuh MSI
+      win_get_url:
+        url: https://packages.wazuh.com/4.x/windows/wazuh-agent-4.9.2-1.msi
+        dest: C:\Windows\Temp\wazuh-agent.msi
+
+    - name: Installer l'agent Wazuh avec le manager IP
+      win_package:
+        path: C:\Windows\Temp\wazuh-agent.msi
+        arguments: '/q WAZUH_MANAGER="172.23.84.69"'
+        state: present
+
+    - name: Démarrer le service Wazuh
+      win_service:
+        name: WazuhSvc
+        start_mode: auto
+        state: started
