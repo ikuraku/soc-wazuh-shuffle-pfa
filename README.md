@@ -1,4 +1,4 @@
-cat > README.md << 'EOF'
+
 # SOC Wazuh-Shuffle PFA
 
 Plateforme SOC automatisée intégrant Wazuh SIEM/XDR et Shuffle SOAR sur infrastructure cloud privée (Sangfor HCI).
