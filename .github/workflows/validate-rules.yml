@@ -1,0 +1,38 @@
+name: Validate Wazuh Detection Rules
+
+on:
+  push:
+    paths:
+      - 'wazuh-config/rules/*.xml'
+  pull_request:
+    paths:
+      - 'wazuh-config/rules/*.xml'
+
+jobs:
+  validate-xml:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate XML syntax
+        run: |
+          for file in wazuh-config/rules/*.xml; do
+            echo "Validating $file..."
+            python3 -c "import xml.etree.ElementTree as ET; ET.parse('$file')" || exit 1
+            echo "$file is valid XML"
+          done
+
+      - name: Check for required elements
+        run: |
+          for file in wazuh-config/rules/*.xml; do
+            if ! grep -q "<description>" "$file"; then
+              echo "ERROR: $file missing <description> tag"
+              exit 1
+            fi
+            if ! grep -q "<rule id=" "$file"; then
+              echo "ERROR: $file missing <rule id> tag"
+              exit 1
+            fi
+          done
+          echo "All rules have required elements"
